@@ -39,14 +39,14 @@ int IsLevelUp(Combater* _player) {
 	}
 
 int AbilitiesLevelUp(Combater* _player) {
-	_player->fighterAttack *= 1.5;
-	_player->fighterDefend *= 1.5;
-	_player->fighterSpeed  *= 1.5;
+	_player->fighterAttack *= 1.1;
+	_player->fighterDefend *= 1.1;
+	_player->fighterSpeed  *= 1.1;
 	return 1;
 }
 
 int HPLevelUp(Combater* _player) {
-	_player->fighterHPMAX *= 1.5;
+	_player->fighterHPMAX *= 1.1;
 	_player->fighterHP = _player->fighterHPMAX;
 	return 1;
 }

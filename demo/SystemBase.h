@@ -26,4 +26,6 @@ int SumCol(const int *_target, int _numOfTarget);
 
 int CharToInt(char _char);
 
+int GetPowerResult(int _num, int _col[]);
+
 #endif // !SYSTEMBASE_H

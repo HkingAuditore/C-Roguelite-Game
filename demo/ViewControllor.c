@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include <windows.h>
 
 #include "CharactersManager.h"
 #include "SystemBase.h"
@@ -24,6 +25,8 @@ color GetColor(Combater* _combater) {
 }
 
 int ShowDamage(Combater* _combater0,Combater* _combater1, char _skillsName[10], int _damage,int _isTooMuch) {
+
+	Sleep(400);
 	printf("\033[1;%dm%s\033[m 使用 \033[1;36m%s\033[m 给 \033[1;%dm%s\033[m 造成了 \033[1;35m%d\033[m 点伤害！", GetColor(_combater0), _combater0->fighterName,_skillsName, GetColor(_combater1),_combater1->fighterName,_damage);
 	if (_isTooMuch) {
 		printf("\033[1; %dm效果拔群！\033[m",purple);
@@ -38,6 +41,7 @@ int ShowDead(Combater* _combaterDead) {
 }
 
 int ShowWinner(Combater* _combater) {
+	Sleep(400);
 	if (_combater) {
 		printf("胜者是：\033[1;%dm%s\033[m!\n",GetColor(_combater), _combater->fighterName);
 	}
@@ -55,6 +59,7 @@ char* TipForString(char *_tip,char* _input,int _max) {
 }
 
 int ShowLevelUp(Combater *_combater) {
+	Sleep(400);
 	printf("\033[1;34m%s\033[m 升级了！当前等级是%d级。\n", _combater->fighterName, _combater->fighterLevel);
 }
 
@@ -132,7 +137,3 @@ int DrawWholeViewMap(int _mapInView[9]) {
 	}
 	return 1;
 }
-
-
-
-

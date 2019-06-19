@@ -3,6 +3,7 @@
 #include <stdarg.h>
 #include "CharactersManager.h"
 #include "SystemBase.h"
+#include "EventsManager.h"
 
 #define MAP_SAVE_POSITION "Map.txt"
 
@@ -22,6 +23,7 @@ extern int DrawWholeViewMap(int _mapInView[9]);
 const int _NumOfMapPoint = 4;
 const int _SizeOfFeildOfView = 3;
 
+
 FILE *_MapSavePosition;
 
 /////////坐标管理/////////
@@ -37,7 +39,7 @@ typedef enum MoveDir
 	Nowhere, Forward, Backward, Left, Right
 }Movedir;
 
-Transform _PlayerTransform = { 10,10 };
+Transform _PlayerTransform = { 51,51 };
 char _DirName[4][20] = {"前","后","左","右"};
 
 ////////////地图管理///////////
@@ -49,13 +51,13 @@ typedef enum MapPoint
 const int _NumOfDir = 4;
 
 
-int _MapPointPower[20] = {20,10,2,5};
+int _MapPointPower[20] = {20,10,2,10};
 
 //地图点随机生成
 Mappoint RandomMapPointType(int _numOfMapPoint) {
 	Mappoint mapPointType=Road;
 	int stageSumOfPower[20] = {0};
-	for (int i = 0; i < _numOfMapPoint;i++) {
+/*	for (int i = 0; i < _numOfMapPoint;i++) {
 		stageSumOfPower[i] = SumCol(_MapPointPower, i+1);
 	}
 	
@@ -66,7 +68,8 @@ Mappoint RandomMapPointType(int _numOfMapPoint) {
 			break;
 		}
 	}
-
+*/
+	mapPointType = (Mappoint)GetPowerResult(_numOfMapPoint, _MapPointPower);
 	return mapPointType;
 }
 
@@ -226,4 +229,47 @@ int PlayerMove(int _inputDir,int _mapSize, int _mapAreaData[9]) {
 	Movedir dir = GetMoveDir(_inputDir);
 	Move(dir, &_PlayerTransform);
 	ReadMapArea(_PlayerTransform.x, _PlayerTransform.y, _mapSize, _mapAreaData);
+	return ReadMapSinglePoint(_PlayerTransform.x, _PlayerTransform.y, _mapSize);
+}
+
+
+int PlayerMover(int _inputDir, int _mapSize, int _mapAreaData[9]) {
+	MapToEvent(PlayerMove(_inputDir, _mapSize, _mapAreaData));
+}
+
+int MapToEvent(int _mapPoint){
+	Mappoint tempMP = _mapPoint;
+	switch (tempMP)
+	{
+	case Road:
+		return 0;
+		break;
+	case Mountain:
+		return 1;
+		break;
+	case Shop:
+		return 2;
+		break;
+	case Enemy:
+		FightEvent(NULL,100);
+
+		return 3;
+		break;
+	default:
+		return -1;
+		break;
+	}
+}
+
+int ReadAllAreaInCol(int _col[],int _mapSize) {
+
+}
+
+
+int ChangeMapPoint(Transform _pos, Mappoint _tar, int _mapSiz) {
+	StartMapReading();
+	int * tempCol = (int*)malloc(((_mapSiz + 2)*(_mapSiz+2))*sizeof(int));
+
+
+	EndMapReading();
 }

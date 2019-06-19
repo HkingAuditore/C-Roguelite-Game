@@ -3,24 +3,17 @@
 #include <stdarg.h>
 #include "CharactersManager.h"
 #include "SystemBase.h"
+#include "EventsManager.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //////////////外部方法/////////////
 
-extern int *ChooseSkill(int _numOfSkill);
-
-extern int IsDead(Combater* _combater);
-extern int FightCycles(Combater* _combaterFirst, Combater* _combaterSecond, int _maxRound);
-extern int ShowWinner(Combater* _combater);
-extern int Fight(Combater* _combater0, Combater* _combater1, int _maxRound);
 extern int RegisterPlayer(Combater* _player);
-extern int WinTheFight(Combater* _player, int _exp);
 extern int Menu(int _numOfMenu, char _menu[][20], char* _guideSentence);
 extern int GenerateMap(int _mapSize_MUSTBESINGLE);
-extern int ReadMapSinglePoint(int _posX, int _posY, int _mapSize);
 extern int ReadMapArea(int _posX, int _posY, int _mapSize, int _mapAreaData[9]);
-extern int PlayerMove(int _inputDir, int _mapSize, int _mapAreaData[9]);
+extern int PlayerMover(int _inputDir, int _mapSize, int _mapAreaData[9]);
 /////////////////外部数据/////////////////////
 extern Combater *_Combaters[10];
 extern Combater _CombaterPlayer;
@@ -31,7 +24,7 @@ extern char _DirName[4][20];
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const int _SizeOfMap = 21;
+const int _SizeOfMap = 101;
 int _AreaInView[9] = { 0 };
 
 
@@ -42,15 +35,8 @@ int GameStart() {
 	if (!GenerateMap(_SizeOfMap)) {
 		exit(2);
 	}
-	ReadMapSinglePoint(1, 1, _SizeOfMap);
+	
 	return 1;
-}
-
-int PlayerFight(Combater* _combaterCompeter) {
-	if ((&_CombaterPlayer)==Fight(&_CombaterPlayer, _combaterCompeter, 100)) {
-		WinTheFight(&_CombaterPlayer, _EXPForOneFight);
-	}
-
 }
 
 int EnemyMenu(int _numOfenemy) {
@@ -64,20 +50,20 @@ int MoveMenu() {
 	return dirChosen;
 }
 
-int PlayerMover() {
-	PlayerMove(MoveMenu(), _SizeOfMap,_AreaInView);
+int PlayerMoverControllor() {
+	PlayerMover(MoveMenu(), _SizeOfMap,_AreaInView);
 }
 
 int main(void) {
 	GameStart();
 	RegisterPlayer(&_CombaterPlayer);
-	ReadMapArea(10, 10, _SizeOfMap, _AreaInView);
+	ReadMapArea(((_SizeOfMap+1)/2), ((_SizeOfMap + 1) / 2), _SizeOfMap, _AreaInView);
 
 	
 	
 	while (1)
 	{
-		PlayerMover();
+		PlayerMoverControllor();
 	}
 	
 

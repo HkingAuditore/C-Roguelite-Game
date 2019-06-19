@@ -64,4 +64,25 @@ int CharToInt(char _char) {
 	return result;
 }
 
+//按概率取数
+int GetPowerResult(int _num,int _col[]) {
+	int result;
+	int *stageSumOfPower = (int*)malloc(_num*sizeof(int));
+	if (!*stageSumOfPower)
+		return -1;
+	for (int i = 0; i < _num; i++) {
+		stageSumOfPower[i] = SumCol(_col, i + 1);
+	}
+
+	int tempRandom = GetPowerNumber(stageSumOfPower[_num - 1]);
+	for (int i = 0; i < _num; i++) {
+		if (tempRandom <= stageSumOfPower[i]) {
+			result = i;
+			break;
+		}
+	}
+	return result;
+	free(stageSumOfPower);
+}
+
 

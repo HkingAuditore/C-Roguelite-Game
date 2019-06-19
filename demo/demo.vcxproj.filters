@@ -24,6 +24,9 @@
     <ClInclude Include="SkillsManager.h">
       <Filter>源文件</Filter>
     </ClInclude>
+    <ClInclude Include="EventsManager.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameControllor.c">

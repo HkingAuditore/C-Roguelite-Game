@@ -25,6 +25,7 @@
     <ClCompile Include="GameDataBase.c" />
     <ClCompile Include="MapManager.c" />
     <ClCompile Include="PlayersManager.c" />
+    <ClInclude Include="EventsManager.h" />
     <ClInclude Include="SkillsManager.h" />
     <ClInclude Include="SystemBase.h" />
     <ClCompile Include="SystemBase.c" />
