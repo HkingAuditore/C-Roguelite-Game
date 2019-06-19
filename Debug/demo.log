@@ -1,5 +1,0 @@
-﻿  ViewControllor.c
-g:\cprogram\demo\demo\viewcontrollor.c(59): warning C4716: “ShowLevelUp”: 必须返回一个值
-g:\cprogram\demo\demo\viewcontrollor.c(76): warning C4716: “ShowTip”: 必须返回一个值
-g:\cprogram\demo\demo\viewcontrollor.c(84): warning C4716: “ShowMenu”: 必须返回一个值
-  demo.vcxproj -> G:\CProgram\demo\Debug\demo.exe
